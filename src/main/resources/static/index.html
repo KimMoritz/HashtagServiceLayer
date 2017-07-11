@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Hashtag analysis</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="dataScript.js"></script>
+</head>
+<body>
+
+<div>
+    <p>
+        <form id="timeForm">
+            <input type="radio" name="period" value="hour" checked="true">hour
+            <input type="radio" name="period" value="day">day
+            <input type="radio" name="period" value="week"> week
+            <input type="radio" name="period" value="month">month
+        </form>
+            <input type="text" id="inputhashtag">
+            <input type="button" id="refreshButton" value="refresh">
+    </p>
+</div>
+
+<div id="hashtagPlot" style="width:90%;height:250px;"></div>
+
+<div id="timespan">timespan</div>
+<p id="displaying">Displaying:</p>
+
+</body>
+</html>
