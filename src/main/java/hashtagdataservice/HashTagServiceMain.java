@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class HashTagService {
+public class HashTagServiceMain {
 
     public static void main(String[] args) {
-        SpringApplication.run(HashTagService.class, args);
+        SpringApplication.run(HashTagServiceMain.class, args);
     }
 
 }
