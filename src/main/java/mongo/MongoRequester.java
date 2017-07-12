@@ -36,6 +36,7 @@ public class MongoRequester {
             MessageProducer prod = session.createProducer(queue);
             TextMessage message = session.createTextMessage("{\"key\":\"test\", \"value\":1}");
             prod.send(message);
+            System.out.println("message sent");
             prod.close();
             session.close();
             connection.stop();

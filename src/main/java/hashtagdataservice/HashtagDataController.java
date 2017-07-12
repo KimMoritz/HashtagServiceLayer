@@ -10,6 +10,10 @@ import org.json.JSONObject;
 public class HashtagDataController {
     MongoRequester mongoRequester = new MongoRequester();
 
+    public HashtagDataController(){
+        mongoRequester.request("asdf");
+    }
+
     @RequestMapping("/getHashtag")
     public String getHashtag(@RequestParam("hashTag") String hashTag) {
         JSONObject jsonObject = mongoRequester.request(hashTag);
