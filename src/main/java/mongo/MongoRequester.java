@@ -1,9 +1,12 @@
 package mongo;
 
+import org.apache.activemq.camel.component.ActiveMQComponent;
+import org.apache.camel.CamelContext;
+import org.apache.camel.ExchangePattern;
+import org.apache.camel.ProducerTemplate;
+import org.apache.camel.impl.DefaultCamelContext;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.apache.activemq.ActiveMQConnectionFactory;
-import javax.jms.*;
 
 public class MongoRequester {
 
@@ -25,19 +28,15 @@ public class MongoRequester {
 
     private void sendCallToMongo(JSONObject jsonObject) {
         try {
-            ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory
-                    ("tcp://localhost:61616");
-            Connection connection = factory.createConnection();
-            connection.start();
-            Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-            Queue queue = session.createQueue("hashtagServiceQueue");
-            MessageProducer prod = session.createProducer(queue);
-            TextMessage message = session.createTextMessage("{\"key\":\"test\", \"value\":1}");
-            prod.send(message);
-            System.out.println("message sent");
-            prod.close();
-            session.close();
-            connection.stop();
+            CamelContext context = new DefaultCamelContext();
+            context.start();
+            ProducerTemplate producerTemplate = null;
+            context.addComponent("activemq", ActiveMQComponent.activeMQComponent("tcp://localhost:61616"));
+            producerTemplate = context.createProducerTemplate();
+            Object o = producerTemplate.sendBody("activemq:myQueue.queue", ExchangePattern.InOut, "Hello");
+            System.out.println("response: " + o.toString());
+            producerTemplate.stop();
+            context.stop();
         }catch (Exception e){
             e.printStackTrace();
         }

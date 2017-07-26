@@ -8,9 +8,10 @@ import org.json.JSONObject;
 
 @RestController
 public class HashtagDataController {
-    MongoRequester mongoRequester = new MongoRequester();
+    MongoRequester mongoRequester;
 
     public HashtagDataController(){
+        mongoRequester = new MongoRequester();
         mongoRequester.request("asdf");
     }
 

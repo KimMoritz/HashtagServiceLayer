@@ -50,4 +50,15 @@ public class AssertTests {
         Assert.assertNotNull(response.get("xvals"));
         Assert.assertNotNull(response.get("yvals"));
     }
+
+    //HashtagDataController
+
+    @Test
+    public void getHashtagshouldReturnString(){
+        String response = hashtagDataController.getHashtag("Trump");
+        Assert.assertNotNull(response);
+        Assert.assertEquals("Should be a String.",response.getClass(), String.class);
+        JSONObject jsonObject = new JSONObject(response);
+        System.out.println("response: " +response);
+    }
 }
