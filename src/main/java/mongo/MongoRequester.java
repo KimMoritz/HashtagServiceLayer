@@ -21,25 +21,29 @@ public class MongoRequester {
     }
 
     public JSONObject callMongo(String hashtag, String period){
-        JSONObject jsonObject = new JSONObject("{\"hashtag\": \"" + hashtag +"\",\"xvals\": [0, 1, 2, 3, 4, 5],\"yvals\": [0, 1, 2, 4, 8, 16]}");
-        sendCallToMongo(jsonObject);
+        JSONObject jsonObject = new JSONObject("{\"hashtag\": \"" + hashtag +"\",\"period\":"+period+"}");
+        jsonObject = sendCallToMongo(jsonObject);
         return jsonObject;
     }
 
-    private void sendCallToMongo(JSONObject jsonObject) {
+    private JSONObject sendCallToMongo(JSONObject jsonObject) {
+        JSONObject jsonObject1=null;
         try {
             CamelContext context = new DefaultCamelContext();
             context.start();
             ProducerTemplate producerTemplate = null;
             context.addComponent("activemq", ActiveMQComponent.activeMQComponent("tcp://localhost:61616"));
             producerTemplate = context.createProducerTemplate();
-            Object o = producerTemplate.sendBody("activemq:myQueue.queue", ExchangePattern.InOut, "Hello");
-            System.out.println("response: " + o.toString());
+            Object o = producerTemplate.sendBody("activemq:hashtagServiceQueue", ExchangePattern.InOut,
+                    jsonObject.toString());
+            jsonObject1 = new JSONObject(o.toString());
+            System.out.println("response: " + o.toString()); //later: change from o to jsonobject1
             producerTemplate.stop();
             context.stop();
         }catch (Exception e){
             e.printStackTrace();
         }
+        return jsonObject1;
     }
 
 }
