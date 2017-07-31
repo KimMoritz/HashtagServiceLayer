@@ -23,11 +23,18 @@ $(document).ready(
         };
 
         function getHashTag(hashTag){
-            $.get("getHashtag", {hashTag:hashTag}, function(data){
+            var period;
+            var radios = document.getElementsByName("period");
+            for (var i = 0, length = radios.length; i < length; i++) {
+                if (radios[i].checked) {
+                    period = radios[i].value;
+                }
+            }
+            $.get("getHashtag", {hashTag:hashTag, period:period}, function(data){
                 var jsonObj = JSON.parse(data);
                 xvals = jsonObj.xvals;
                 yvals = jsonObj.yvals;
-                $("#displaying").html("Displaying: " + jsonObj.hashtag);
+                $("#displaying").html("Hashtag: " + hashTag);
             })
         };
 
@@ -45,7 +52,7 @@ $(document).ready(
             var timespan = document.getElementById("timespan");
             for (var i = 0, length = radios.length; i < length; i++) {
                 if (radios[i].checked) {
-                    $("#timespan").html(radios[i].value);
+                    $("#timespan").html("Time: " + radios[i].value);
                 }
             }
         };

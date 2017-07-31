@@ -12,12 +12,12 @@ public class HashtagDataController {
 
     public HashtagDataController(){
         mongoRequester = new MongoRequester();
-        mongoRequester.request("asdf");
+        mongoRequester.request("asdf", "week");
     }
 
     @RequestMapping("/getHashtag")
-    public String getHashtag(@RequestParam("hashTag") String hashTag) {
-        JSONObject jsonObject = mongoRequester.request(hashTag);
+    public String getHashtag(@RequestParam("hashTag") String hashTag, @RequestParam("period") String period) {
+        JSONObject jsonObject = mongoRequester.request(hashTag, period);
         return jsonObject.toString();
     }
 

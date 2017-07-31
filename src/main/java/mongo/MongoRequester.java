@@ -10,10 +10,10 @@ import org.json.JSONObject;
 
 public class MongoRequester {
 
-    public JSONObject request(String hashtag) {
+    public JSONObject request(String hashtag, String period) {
         JSONObject jsonObject = null;
         try{
-            jsonObject = callMongo(hashtag, "week");
+            jsonObject = callMongo(hashtag, period);
         }catch (JSONException je){
             je.printStackTrace();
         }
