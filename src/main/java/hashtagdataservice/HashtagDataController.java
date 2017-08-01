@@ -12,7 +12,7 @@ public class HashtagDataController {
 
     public HashtagDataController(){
         mongoRequester = new MongoRequester();
-        mongoRequester.request("asdf", "week");
+        mongoRequester.request("CNN", "day");
     }
 
     @RequestMapping("/getHashtag")
