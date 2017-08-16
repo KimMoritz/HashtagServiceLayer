@@ -44,7 +44,7 @@ $(document).ready(
             Plotly.plot( hPlot, [{
                 x: xvals,
                 y: yvals }], {
-                margin: { t: 0 }});
+                margin: { t: 0 }, xaxis:{title:'Time ago (h)'}, yaxis:{title:'#/h'}});
         };
 
         function checkTime(){
