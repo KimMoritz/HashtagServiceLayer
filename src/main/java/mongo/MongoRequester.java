@@ -10,25 +10,20 @@ import org.json.JSONObject;
 
 public class MongoRequester {
 
-    public JSONObject request(String hashtag, String period) {
+    public JSONObject request(String hashtag, String period) throws Exception {
         JSONObject jsonObject = null;
-        try{
             jsonObject = callMongo(hashtag, period);
-        }catch (JSONException je){
-            je.printStackTrace();
-        }
         return jsonObject;
     }
 
-    public JSONObject callMongo(String hashtag, String period){
+    public JSONObject callMongo(String hashtag, String period) throws Exception {
         JSONObject jsonObject = new JSONObject("{\"hashtag\": \"" + hashtag +"\",\"period\":"+period+"}");
         jsonObject = sendCallToMongo(jsonObject);
         return jsonObject;
     }
 
-    private JSONObject sendCallToMongo(JSONObject jsonObject) {
+    private JSONObject sendCallToMongo(JSONObject jsonObject) throws Exception {
         JSONObject jsonObject1=null;
-        try {
             CamelContext context = new DefaultCamelContext();
             context.start();
             ProducerTemplate producerTemplate = null;
@@ -40,9 +35,6 @@ public class MongoRequester {
             System.out.println("response: " + o.toString()); //later: change from o to jsonobject1
             producerTemplate.stop();
             context.stop();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
         return jsonObject1;
     }
 
